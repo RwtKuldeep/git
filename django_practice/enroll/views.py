@@ -5,5 +5,10 @@ from .forms import Student_info
 
 
 def home(request):
-    fm = Student_info()
+    if request.method == "POST":
+        fm = Student_info(request.POST)
+        if fm.is_valid():
+            fm.save()
+    else:
+        fm = Student_info()
     return render(request, 'enroll/index.html', {'form': fm})
